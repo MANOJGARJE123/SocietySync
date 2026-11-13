@@ -1,0 +1,13 @@
+.env
+*.env
+.env.*
+!.env.example
+node_modules/
+.DS_Store
+__MACOSX
+dist/
+build/
+.expo/
+backend/uploads/*
+!backend/uploads/.gitkeep
+!backend/uploads/complaints/.gitkeep

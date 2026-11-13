@@ -1,0 +1,11 @@
+const express = require('express');
+const maintenanceController = require('../controllers/maintenance.controller');
+const asyncHandler = require('../middlewares/asyncHandler');
+const { protect, authorize, requireApprovedResident } = require('../middlewares/auth.middleware');
+const router = express.Router();
+router.post('/dues',        protect, authorize('admin'), asyncHandler(maintenanceController.createDue));
+router.get('/',             protect, authorize('admin'), asyncHandler(maintenanceController.getAllDues));
+router.get('/my',           protect, requireApprovedResident, authorize('resident','chairman'), asyncHandler(maintenanceController.getMyDues));
+router.post('/:id/pay',     protect, requireApprovedResident, asyncHandler(maintenanceController.addPayment));
+router.post('/:id/notify',  protect, authorize('admin'), asyncHandler(maintenanceController.notifyResident));
+module.exports = router;
